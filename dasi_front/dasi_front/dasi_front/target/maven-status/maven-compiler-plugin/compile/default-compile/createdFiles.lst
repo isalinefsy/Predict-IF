@@ -1,5 +1,7 @@
-ActionServlet.class
-Serialisation.class
-Action.class
-AuthentifierUtilisateurAction.class
-ProfilUtilisateurSerialisation.class
+Controleur\ActionServlet.class
+Serialisation\Serialisation.class
+Serialisation\ProfilUtilisateurSerialisation.class
+Actions\Action.class
+Serialisation\RegisterClientSerialisation.class
+Actions\InscrireClientAction.class
+Actions\AuthentifierUtilisateurAction.class

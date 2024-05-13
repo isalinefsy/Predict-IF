@@ -3,10 +3,52 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body>
         <h1>TD DASI - Initialisation Web</h1>
         <p> Ce TD vous initie aux technologies Web. Êtes-vous prêts ?</p>
+        <p id="notification"></p>
         <a href ="login.html" > Aller à la page de connexion </a>
+        <br>
+        <a href ="registerClient.html" > Aller à la page d'inscription de client </a>
+
+        <ul id="liste-mediums"> </ul>
+
+        <script>
+            $(document).ready(function () {
+            console.log("chargement de la liste des mediums"); // LOG dans Console Javascript
+                    $('#notification').html("Chargement des mediums"); // Message pour le paragraphe de notification
+
+                    // Appel AJAX
+                    $.ajax({
+                    url: './ActionServlet',
+                            method: 'POST',
+                            data: {
+                            todo: 'listerMediums',
+                            },
+                            dataType: 'json'
+                    })
+                    .done(function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                    console.log('Response', response); // LOG dans Console Javascript
+                            let mediums = response.mediums;
+                            let listeMediumsHtml = $('#liste-mediums');
+                            listeMediumsHtml.empty();
+                            $.each(mediums, function(i, medium) {
+                            listeMediumsHtml.append($("<li>").attr("id", medium.Id).text(medium.denomination + " " + medium.genre + " " + medium.presentation));
+                            })
+                            $('#notification').html("mediums chargés");
+
+                    })
+                    .fail(function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                    console.log('Error', error); // LOG dans Console Javascript
+                            alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always(function () { // Fonction toujours appelée
+                    });
+            });
+        </script>
     </body>
 </html>
+
+
